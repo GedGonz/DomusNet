@@ -9,11 +9,12 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "type_voucher")
-public class TypeVoucher {
+@Table(name = "role")
+public class Role {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
+	@SequenceGenerator(name = "role_seq", sequenceName = "role_seq", allocationSize = 1)
 	public Long id;
 
 	@Column(nullable = false, length = 50)
@@ -24,4 +25,6 @@ public class TypeVoucher {
 
 	@Column(name = "date_record", nullable = false)
 	private LocalDate dateRecord;
+
+
 }

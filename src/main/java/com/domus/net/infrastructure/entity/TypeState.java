@@ -14,7 +14,10 @@ public class TypeState {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long id;
 
-	public String name;
-	public String description;
+	@Column(nullable = false, length = 50)
+	private String name;
+
+	@Column(nullable = false, length = 50)
+	private String description;
 
 }

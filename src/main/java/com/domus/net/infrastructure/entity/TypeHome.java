@@ -16,11 +16,16 @@ public class TypeHome {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long id;
 
-	public String name;
-	public String description;
-	public BigDecimal discount;
+	@Column(nullable = false, length = 50)
+	private String name;
 
-	@ManyToOne()
-	@JoinColumn(name = "state_id")
-	public TypeState typeState;
+	@Column(nullable = false, length = 50)
+	private String description;
+
+	@Column(nullable = false, precision = 2, scale = 1)
+	private BigDecimal discount;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "state_id", nullable = false)
+	private TypeState state;
 }
