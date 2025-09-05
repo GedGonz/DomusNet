@@ -5,4 +5,5 @@ import com.domus.net.infrastructure.entity.Residence;
 
 public interface ResidenceRepository  extends baseRepository<Residence> {
 
+	boolean existName(String name);
 }

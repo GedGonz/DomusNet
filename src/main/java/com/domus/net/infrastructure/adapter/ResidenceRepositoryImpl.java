@@ -51,4 +51,9 @@ public class ResidenceRepositoryImpl implements ResidenceRepository {
 	public void delete(Long id) {
 		jpaResidenceRepository.findById(id).ifPresent(jpaResidenceRepository::delete);
 	}
+
+	@Override
+	public boolean existName(String name) {
+		return jpaResidenceRepository.existsByNameIgnoreCase(name).orElse(false);
+	}
 }
