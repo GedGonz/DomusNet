@@ -48,4 +48,9 @@ public class TypeHomeRepositoryImpl implements TypeHomeRepository {
 	public void delete(Long id) {
 		jpaTypeHomeRepository.findById(id).ifPresent(jpaTypeHomeRepository::delete);
 	}
+
+	@Override
+	public boolean existName(String name) {
+		return jpaTypeHomeRepository.existsByNameIgnoreCase(name).orElse(false);
+	}
 }
