@@ -46,7 +46,7 @@ public class HomeController {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<HomeDto> update(@PathVariable Long id, @RequestBody HomeDto homeDto) {
+	public ResponseEntity<HomeDto> update(@PathVariable Long id, @Valid @RequestBody HomeDto homeDto) {
 
 		if (!id.equals(homeDto.getId())) {
 			return ResponseEntity.badRequest().build();

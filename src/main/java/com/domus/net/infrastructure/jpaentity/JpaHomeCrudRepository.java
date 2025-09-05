@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface JpaHomeCrudRepository extends JpaRepository<Home,Long> {
 
-	Optional<Boolean> existsByNumber(String number);
+	Optional<Boolean> existsByNumberIgnoreCase(String number);
 }

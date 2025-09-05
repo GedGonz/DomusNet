@@ -27,7 +27,7 @@ public class HomeRepositoryImpl implements HomeRepository {
 
 	@Override
 	public boolean existNumber(String number) {
-		return jpaHomeCrudRepository.existsByNumber(number).orElse(false);
+		return jpaHomeCrudRepository.existsByNumberIgnoreCase(number).orElse(false);
 	}
 	@Override
 	public List<Home> getAll() {
