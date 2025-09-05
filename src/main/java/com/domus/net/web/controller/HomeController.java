@@ -2,6 +2,7 @@ package com.domus.net.web.controller;
 
 import com.domus.net.application.HomeApplication;
 import com.domus.net.domain.dto.HomeDto;
+import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class HomeController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<HomeDto> save(@RequestBody HomeDto homeDto){
+	public ResponseEntity<HomeDto> save(@Valid @RequestBody HomeDto homeDto){
 
 		if(homeApplication.existNumber(homeDto.getNumber())){
 			log.warn("la casa con id {} ya exist", homeDto.getNumber());

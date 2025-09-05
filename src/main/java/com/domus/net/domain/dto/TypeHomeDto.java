@@ -1,10 +1,12 @@
 package com.domus.net.domain.dto;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
+
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TypeHomeDto {
 
 	public Long id;

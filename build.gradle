@@ -39,6 +39,8 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.6.3'
     // Procesador de anotaciones para MapStruct
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+    // validaciones
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {

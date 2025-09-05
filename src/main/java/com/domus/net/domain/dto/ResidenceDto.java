@@ -1,14 +1,16 @@
 package com.domus.net.domain.dto;
 
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import java.time.LocalDate;
-import java.util.Set;
+
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResidenceDto {
 
 	public Long id;
