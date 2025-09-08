@@ -24,8 +24,9 @@ public interface HomeMapper {
 			@Mapping(target = "residence", expression = "java(findResidence(homeDto.getResidence().getId(), context))"),
 			@Mapping(target = "typeHome", expression = "java(findTypeHome(homeDto.getTypeHome().getId(), context))")
 	})
+	@Mapping(target = "persons", ignore = true)
 	Home homeDtoToHome(HomeDto homeDto, @Context MappingContext context);
-
+	@Mapping(target = "persons", ignore = true)
 	List<Home> homesDtoToHomes(List<HomeDto> homeDtos);
 	List<HomeDto> homessToHomesDto(List<Home> homes);
 

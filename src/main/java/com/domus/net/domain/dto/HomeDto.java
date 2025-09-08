@@ -18,7 +18,6 @@ public class HomeDto {
 	@NotNull(message = "El modelo no puede ser nulo")
 	@Size(min = 1, max = 50, message = "El modelo debe tener entre 1 y 50 caracteres")
 	private String model;
-	@NotNull(message = "El estado no puede ser nulo")
 	private TypeStateDto state;
 	@NotNull(message = "La redisencia no puede ser nulo")
 	private ResidenceDto residence;

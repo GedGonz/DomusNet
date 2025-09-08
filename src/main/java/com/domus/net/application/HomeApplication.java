@@ -2,6 +2,8 @@ package com.domus.net.application;
 
 import com.domus.net.application.anotation.Application;
 import com.domus.net.domain.dto.HomeDto;
+import com.domus.net.domain.dto.TypeStateDto;
+import com.domus.net.domain.enums.TypeState;
 import com.domus.net.domain.service.HomeService;
 
 import java.util.List;
@@ -31,15 +33,8 @@ public class HomeApplication {
 
 	public HomeDto save(HomeDto homeDto){
 
-		if(homeDto.getTypeHome().getId()==null || homeDto.getTypeHome().getId()==0){
-			throw new IllegalArgumentException("el campo typeHomeId es invalido");
-		}
-		if(homeDto.getResidence().getId()==null || homeDto.getResidence().getId()==0){
-			throw new IllegalArgumentException("el campo residenceId es invalido");
-		}
-		if(homeDto.getState().getId()==null || homeDto.getState().getId()==0){
-			throw new IllegalArgumentException("el campo residenceId es invalido");
-		}
+		var state= TypeStateDto.builder().id(TypeState.ACTIVE.getValue()).build();
+		homeDto.setState(state);
 
 		return homeService.save(homeDto);
 	}
