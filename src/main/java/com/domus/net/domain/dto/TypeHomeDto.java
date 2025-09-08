@@ -21,6 +21,6 @@ public class TypeHomeDto {
 	private String description;
 	@NotNull(message = "El descuento no puede ser nulo")
 	private BigDecimal discount;
-	@NotNull(message = "El estado no puede ser nulo")
+
 	private TypeStateDto state;
 }

@@ -1,10 +1,7 @@
 package com.domus.net.infrastructure.adapter;
 
-import com.domus.net.domain.repository.HomeRepository;
 import com.domus.net.domain.repository.ResidenceRepository;
-import com.domus.net.infrastructure.entity.Home;
 import com.domus.net.infrastructure.entity.Residence;
-import com.domus.net.infrastructure.jpaentity.JpaHomeCrudRepository;
 import com.domus.net.infrastructure.jpaentity.JpaResidenceRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;

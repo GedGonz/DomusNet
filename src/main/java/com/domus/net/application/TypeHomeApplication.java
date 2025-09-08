@@ -1,9 +1,9 @@
 package com.domus.net.application;
 
 import com.domus.net.application.anotation.Application;
-import com.domus.net.domain.dto.ResidenceDto;
 import com.domus.net.domain.dto.TypeHomeDto;
-import com.domus.net.domain.service.ResidenceService;
+import com.domus.net.domain.dto.TypeStateDto;
+import com.domus.net.domain.enums.TypeState;
 import com.domus.net.domain.service.TypeHomeService;
 
 import java.util.List;
@@ -32,6 +32,10 @@ public class TypeHomeApplication {
 	}
 
 	public TypeHomeDto save(TypeHomeDto residenceDto){
+
+		var state= TypeStateDto.builder().id(TypeState.ACTIVE.getValue()).build();
+		residenceDto.setState(state);
+
 		return typeHomeService.save(residenceDto);
 	}
 
