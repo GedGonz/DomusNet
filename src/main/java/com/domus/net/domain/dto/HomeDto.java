@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Data
 @NoArgsConstructor
@@ -23,4 +26,6 @@ public class HomeDto {
 	private ResidenceDto residence;
 	@NotNull(message = "El tipo casa no puede ser nulo")
 	private TypeHomeDto typeHome;
+
+	private Set<PersonDto> persons = new HashSet<>();
 }

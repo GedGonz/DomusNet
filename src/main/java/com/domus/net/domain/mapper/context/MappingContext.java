@@ -1,8 +1,6 @@
 package com.domus.net.domain.mapper.context;
 
-import com.domus.net.domain.repository.ResidenceRepository;
-import com.domus.net.domain.repository.TypeHomeRepository;
-import com.domus.net.domain.repository.TypeStateRepository;
+import com.domus.net.domain.repository.*;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +11,18 @@ public class MappingContext {
 	private final TypeStateRepository typeStateRepository;
 	private final ResidenceRepository residenceRepository;
 	private final TypeHomeRepository typeHomeRepository;
+	private final PersonRepository personRepository;
+	private final HomeRepository homeRepository;
+	private final ParameterRepository parameterRepository;
 
 
-	public MappingContext(TypeStateRepository typeStateRepository, ResidenceRepository residenceRepository, TypeHomeRepository typeHomeRepository) {
+	public MappingContext(TypeStateRepository typeStateRepository, ResidenceRepository residenceRepository, TypeHomeRepository typeHomeRepository, PersonRepository personRepository, HomeRepository homeRepository, ParameterRepository parameterRepository) {
 		this.typeStateRepository = typeStateRepository;
 		this.residenceRepository = residenceRepository;
 		this.typeHomeRepository = typeHomeRepository;
+		this.personRepository = personRepository;
+		this.homeRepository = homeRepository;
+		this.parameterRepository = parameterRepository;
 	}
 }
 
