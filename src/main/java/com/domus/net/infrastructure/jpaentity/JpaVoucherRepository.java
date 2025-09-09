@@ -1,0 +1,13 @@
+package com.domus.net.infrastructure.jpaentity;
+
+import com.domus.net.infrastructure.entity.Voucher;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+
+public interface JpaVoucherRepository extends JpaRepository<Voucher,Long> {
+
+	@Query(value = "SELECT process_voucher(:voucherId)", nativeQuery = true)
+	void processVoucher(@Param("voucherId") Integer voucherId);
+}

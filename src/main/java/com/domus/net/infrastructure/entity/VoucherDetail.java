@@ -15,7 +15,7 @@ public class VoucherDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "voucher_detail_seq")
 	@SequenceGenerator(name = "voucher_detail_seq", sequenceName = "voucher_detail_seq", allocationSize = 1)
-	private Integer id;
+	private Long id;
 
 	@Column(nullable = false, length = 100)
 	private String concept;
