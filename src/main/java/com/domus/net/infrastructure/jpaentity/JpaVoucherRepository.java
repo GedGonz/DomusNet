@@ -20,5 +20,5 @@ public interface JpaVoucherRepository extends JpaRepository<Voucher,Long> {
 	@Query(value = "SELECT revert_accounts_receivable(:voucherId)", nativeQuery = true)
 	String revertAccountsReceivable(@Param("voucherId") Integer voucherId);
 
-	Optional<Boolean> existsByNumReferenceIgnoreCase(String numRef);
+	Boolean existsByNumReference(String NumReference);
 }

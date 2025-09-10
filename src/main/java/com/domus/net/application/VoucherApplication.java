@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.IOException;
+
 @Application
 public class VoucherApplication {
 
@@ -37,11 +39,13 @@ public class VoucherApplication {
 		return voucherService.getAll(pageable);
 	}
 
-	public VoucherDto save(VoucherDto voucherDto) throws Exception {
+	public VoucherDto save(VoucherDto voucherDto) throws IOException {
 
 		if (voucherDto.getId()!=null && voucherDto.getId() > 0) {
 			var voucherFounded = findById(voucherDto.getId());
 			fileStorageService.deleteFile(voucherFounded.getPhoto(), folder);
+			voucherService.revertAccountsReceivable(voucherDto.getId());
+			voucherDto.setId(null);
 		}
 
 		String urlSource = fileStorageService.uploadFile(voucherDto.getResourceFile(),folder);
@@ -53,7 +57,7 @@ public class VoucherApplication {
 		voucherService.delete(id);
 	}
 
-	public String revertAccountsReceivable(Integer voucherId) {
+	public String revertAccountsReceivable(Long voucherId) {
 		return voucherService.revertAccountsReceivable(voucherId);
 	}
 }

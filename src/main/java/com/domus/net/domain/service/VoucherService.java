@@ -94,7 +94,7 @@ public class VoucherService {
 	    return totalPaid.compareTo(amountParameter) >= 0;
 	}
 
-	public String revertAccountsReceivable(Integer voucherId) {
+	public String revertAccountsReceivable(Long voucherId) {
 		return voucherRepository.revertAccountsReceivable(voucherId);
 	}
 

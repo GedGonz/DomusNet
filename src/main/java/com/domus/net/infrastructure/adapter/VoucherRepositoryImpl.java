@@ -33,7 +33,7 @@ public class VoucherRepositoryImpl implements VoucherRepository {
 
 	@Override
 	public boolean existNumReference(String numRef) {
-		return jpaVoucherRepository.existsByNumReferenceIgnoreCase(numRef).isPresent();
+		return jpaVoucherRepository.existsByNumReference(numRef);
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class VoucherRepositoryImpl implements VoucherRepository {
 	}
 
 	@Override
-	public String revertAccountsReceivable(Integer voucherId) {
-		return jpaVoucherRepository.revertAccountsReceivable(voucherId);
+	public String revertAccountsReceivable(Long voucherId) {
+		return jpaVoucherRepository.revertAccountsReceivable(Integer.parseInt(voucherId.toString()) );
 	}
 }

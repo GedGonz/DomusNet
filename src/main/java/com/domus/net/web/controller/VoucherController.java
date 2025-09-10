@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @Log4j2
 @RestController
 @RequestMapping("/voucher")
@@ -36,7 +34,7 @@ public class VoucherController {
 
 	@GetMapping("revert/{id}")
 	public ResponseEntity<String> revert(@PathVariable("id") Long id) {
-		var result = voucherApplication.revertAccountsReceivable(Integer.parseInt(id.toString()));
+		var result = voucherApplication.revertAccountsReceivable(id);
 		if(result.contains("Error"))
 			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		return ResponseEntity.status(HttpStatus.OK).build();
@@ -66,6 +64,7 @@ public class VoucherController {
 			log.warn("El voucher con ID {} no existe para ser actualizada", id);
 			return ResponseEntity.notFound().build();
 		}
+		voucherDto.setId(id);
 		VoucherDto voucherUpdated = voucherApplication.save(voucherDto);
 		return new ResponseEntity<>(voucherUpdated, HttpStatus.OK);
 	}

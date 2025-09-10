@@ -13,5 +13,5 @@ public interface VoucherRepository extends baseRepository<Voucher> {
 	List<Voucher> getAllByTypeVoucher(TypeVoucher typeVoucher);
 	boolean existNumReference(String numRef);
 	void processVoucher(@Param("voucherId") Long voucherId);
-	String revertAccountsReceivable(Integer voucherId);
+	String revertAccountsReceivable(Long voucherId);
 }

@@ -24,14 +24,19 @@ public class FileStorageService {
 		return cloudinary.uploader().upload(file.getBytes(),parameter).get("url").toString();
 	}
 
-	public void deleteFile(String pathPhoto,String folder) throws Exception {
-		if(pathPhoto.isEmpty()){
-			log.warn("not exist path source current");
-			return;
-		}
+	public void deleteFile(String pathPhoto,String folder) {
 
-		String idFile = getIdFile(pathPhoto, folder);
-		cloudinary.api().deleteResources(List.of(idFile),null);
+		try
+		{
+			if(pathPhoto.isEmpty()){
+				log.warn("not exist path source current");
+				return;
+			}
+			String idFile = getIdFile(pathPhoto, folder);
+			cloudinary.api().deleteResources(List.of(idFile),null);
+		}catch (Exception ex){
+			log.error(ex);
+		}
 	}
 
 	private String getIdFile(String pathPhoto, String folder){
