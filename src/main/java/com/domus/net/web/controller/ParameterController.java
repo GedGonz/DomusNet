@@ -4,11 +4,11 @@ import com.domus.net.application.ParameterApplication;
 import com.domus.net.domain.dto.ParameterDto;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @Log4j2
@@ -23,8 +23,8 @@ public class ParameterController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<List<ParameterDto>> getAll(){
-		return new ResponseEntity<>(parameterApplication.getAll(), HttpStatus.OK);
+	public ResponseEntity<Page<ParameterDto>> getAll(Pageable pageable){
+		return new ResponseEntity<>(parameterApplication.getAll(pageable), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

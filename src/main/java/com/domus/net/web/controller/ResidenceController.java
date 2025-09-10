@@ -1,17 +1,14 @@
 package com.domus.net.web.controller;
 
-import com.domus.net.application.HomeApplication;
 import com.domus.net.application.ResidenceApplication;
-import com.domus.net.domain.dto.HomeDto;
 import com.domus.net.domain.dto.ResidenceDto;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 
 @Log4j2
 @RestController
@@ -25,8 +22,8 @@ public class ResidenceController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<List<ResidenceDto>> getAll(){
-		return new ResponseEntity<>(residenceApplication.getAll(), HttpStatus.OK);
+	public ResponseEntity<Page<ResidenceDto>> getAll(Pageable pageable){
+		return new ResponseEntity<>(residenceApplication.getAll(pageable), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

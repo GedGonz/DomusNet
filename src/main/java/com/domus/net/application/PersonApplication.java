@@ -3,8 +3,8 @@ package com.domus.net.application;
 import com.domus.net.application.anotation.Application;
 import com.domus.net.domain.dto.PersonDto;
 import com.domus.net.domain.service.PersonService;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Application
 public class PersonApplication {
@@ -22,8 +22,8 @@ public class PersonApplication {
 		return personService.exist(id);
 	}
 
-	public List<PersonDto> getAll(){
-		return personService.getAll();
+	public Page<PersonDto> getAll(Pageable pageable){
+		return personService.getAll(pageable);
 	}
 
 	public PersonDto save(PersonDto personDto){

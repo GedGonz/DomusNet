@@ -10,11 +10,13 @@ import com.domus.net.domain.repository.ParameterRepository;
 import com.domus.net.domain.repository.VoucherDetailRepository;
 import com.domus.net.domain.repository.VoucherRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 
 
 @Service
@@ -37,19 +39,26 @@ public class VoucherService {
 	public VoucherDto findById(Long id){
 		return voucherMapper.voucherToVoucherDto(voucherRepository.getFindById(id));
 	}
+	public boolean existNumReference(String numRef){
+		return voucherRepository.existNumReference(numRef);
+	}
+
 	public boolean exist(Long id){
 		return voucherRepository.exist(id);
 	}
 
-	public List<VoucherDto> getAll(){
-		var result=voucherRepository.getAll();
-		return voucherMapper.voucherToVoucherDto(result);
+	public Page<VoucherDto> getAll(Pageable pageable){
+
+		var vouchersPage = voucherRepository.getAll(pageable);
+
+		List<VoucherDto> voucherDtoList = voucherMapper.voucherToVoucherDto(vouchersPage.getContent());
+		return new PageImpl<>(voucherDtoList, vouchersPage.getPageable(), vouchersPage.getTotalElements());
 	}
 
 	@Transactional
 	public VoucherDto save(VoucherDto voucherDto){
 
-		var parameters = parameterRepository.getAll().stream().filter(x-> Objects.equals(x.getState().getId(), TypeState.ACTIVE.getValue()));
+		var parameters = parameterRepository.findByState_Id(TypeState.ACTIVE.getValue());
 
 		var voucher = voucherMapper.voucherDtoToVoucher(voucherDto);
 		var voucherSaved = voucherMapper.voucherToVoucherDto(voucherRepository.save(voucher));
@@ -83,6 +92,10 @@ public class VoucherService {
 	
 	private boolean isAmountSufficient(BigDecimal totalPaid, BigDecimal amountParameter){
 	    return totalPaid.compareTo(amountParameter) >= 0;
+	}
+
+	public String revertAccountsReceivable(Integer voucherId) {
+		return voucherRepository.revertAccountsReceivable(voucherId);
 	}
 
 }

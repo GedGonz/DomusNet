@@ -2,8 +2,10 @@ package com.domus.net.domain.service;
 
 import com.domus.net.domain.dto.PersonDto;
 import com.domus.net.domain.mapper.PersonMapper;
-import com.domus.net.domain.mapper.context.MappingContext;
 import com.domus.net.domain.repository.PersonRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +29,12 @@ public class PersonService {
 		return personRepository.exist(id);
 	}
 
-	public List<PersonDto> getAll(){
-		return personMapper.personToPersonDto(personRepository.getAll());
+	public Page<PersonDto> getAll(Pageable pageable){
+
+		var personsPage = personRepository.getAll(pageable);
+
+		List<PersonDto> personsDtoList = personMapper.personToPersonDto(personsPage.getContent());
+		return new PageImpl<>(personsDtoList, personsPage.getPageable(), personsPage.getTotalElements());
 	}
 
 	public PersonDto save(PersonDto personDto){

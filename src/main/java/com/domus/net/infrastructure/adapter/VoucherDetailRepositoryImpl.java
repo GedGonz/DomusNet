@@ -4,6 +4,8 @@ import com.domus.net.domain.repository.VoucherDetailRepository;
 import com.domus.net.infrastructure.entity.VoucherDetail;
 import com.domus.net.infrastructure.jpaentity.JpaVoucherDetailRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,8 +27,8 @@ public class VoucherDetailRepositoryImpl implements VoucherDetailRepository {
 	}
 
 	@Override
-	public List<VoucherDetail> getAll() {
-		return voucherDetailRepository.findAll();
+	public Page<VoucherDetail> getAll(Pageable pageable) {
+		return voucherDetailRepository.findAll(pageable);
 	}
 
 	@Override

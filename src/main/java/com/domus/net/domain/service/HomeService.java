@@ -4,6 +4,9 @@ import com.domus.net.domain.dto.HomeDto;
 import com.domus.net.domain.mapper.HomeMapper;
 import com.domus.net.domain.mapper.context.MappingContext;
 import com.domus.net.domain.repository.HomeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,8 +36,12 @@ public class HomeService {
 		return homeRepository.existNumber(number);
 	}
 
-	public List<HomeDto> getAll(){
-		return homeMapper.homessToHomesDto(homeRepository.getAll());
+	public Page<HomeDto> getAll(Pageable pageable){
+
+		var homesPage = homeRepository.getAll(pageable);
+
+		List<HomeDto> homeDtoList = homeMapper.homessToHomesDto(homesPage.getContent());
+		return new PageImpl<>(homeDtoList, homesPage.getPageable(), homesPage.getTotalElements());
 	}
 
 	public HomeDto save(HomeDto homeDto){

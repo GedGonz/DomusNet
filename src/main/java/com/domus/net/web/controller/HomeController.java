@@ -4,10 +4,11 @@ import com.domus.net.application.HomeApplication;
 import com.domus.net.domain.dto.HomeDto;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 
 @Log4j2
@@ -23,8 +24,8 @@ public class HomeController {
 
 
 	@GetMapping("")
-	public ResponseEntity<List<HomeDto>> getAll(){
-		return new ResponseEntity<>(homeApplication.getAll(), HttpStatus.OK);
+	public ResponseEntity<Page<HomeDto>> getAll(Pageable pageable){
+		return new ResponseEntity<>(homeApplication.getAll(pageable), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

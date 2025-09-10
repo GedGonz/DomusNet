@@ -3,8 +3,9 @@ package com.domus.net.application;
 import com.domus.net.application.anotation.Application;
 import com.domus.net.domain.dto.AccountsReceivableDto;
 import com.domus.net.domain.service.AccountReceivableService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 @Application
 public class AccountReceivableApplication {
@@ -19,8 +20,8 @@ public class AccountReceivableApplication {
 		return accountReceivableService.exist(id);
 	}
 
-	public List<AccountsReceivableDto> getAll(){
-		return accountReceivableService.getAll();
+	public Page<AccountsReceivableDto> getAll(Pageable pageable){
+		return accountReceivableService.getAll(pageable);
 	}
 
 	public void delete(Long id){

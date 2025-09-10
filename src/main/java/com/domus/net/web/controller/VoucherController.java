@@ -4,11 +4,12 @@ import com.domus.net.application.VoucherApplication;
 import com.domus.net.domain.dto.VoucherDto;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 
 @Log4j2
@@ -24,8 +25,8 @@ public class VoucherController {
 
 
 	@GetMapping("")
-	public ResponseEntity<List<VoucherDto>> getAll(){
-		return new ResponseEntity<>(voucherApplication.getAll(), HttpStatus.OK);
+	public ResponseEntity<Page<VoucherDto>> getAll(Pageable pageable){
+		return new ResponseEntity<>(voucherApplication.getAll(pageable), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -33,8 +34,21 @@ public class VoucherController {
 		return new ResponseEntity<>(voucherApplication.findById(id), HttpStatus.OK);
 	}
 
+	@GetMapping("revert/{id}")
+	public ResponseEntity<String> revert(@PathVariable("id") Long id) {
+		var result = voucherApplication.revertAccountsReceivable(Integer.parseInt(id.toString()));
+		if(result.contains("Error"))
+			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<VoucherDto> save(@Valid @ModelAttribute VoucherDto voucherDto) throws Exception {
+
+		if(voucherApplication.existNumReference(voucherDto.getNumReference())){
+			log.warn("el number de referencia {} ya exist", voucherDto.getNumReference());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 
 		VoucherDto voucherSaved = voucherApplication.save(voucherDto);
 

@@ -3,6 +3,9 @@ package com.domus.net.domain.service;
 import com.domus.net.domain.dto.ResidenceDto;
 import com.domus.net.domain.mapper.ResidenceMapper;
 import com.domus.net.domain.repository.ResidenceRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -29,8 +32,12 @@ public class ResidenceService {
 		return residenceRepository.existName(name);
 	}
 
-	public List<ResidenceDto> getAll(){
-		return residenceMapper.residenceToResidenceDto(residenceRepository.getAll());
+	public Page<ResidenceDto> getAll(Pageable pageable){
+
+		var residencePage = residenceRepository.getAll(pageable);
+
+		List<ResidenceDto> tresidenceDtoList = residenceMapper.residenceToResidenceDto(residencePage.getContent());
+		return new PageImpl<>(tresidenceDtoList, residencePage.getPageable(), residencePage.getTotalElements());
 	}
 
 	public ResidenceDto save(ResidenceDto residenceDto){

@@ -26,7 +26,7 @@ public class VoucherDto {
 	private BigDecimal amount;
 
 	@NotNull(message = "El numero de referencia no puede ser nulo")
-	private Integer numReference;
+	private String numReference;
 
 	private MultipartFile resourceFile;
 

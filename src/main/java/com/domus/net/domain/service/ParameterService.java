@@ -3,6 +3,9 @@ package com.domus.net.domain.service;
 import com.domus.net.domain.dto.ParameterDto;
 import com.domus.net.domain.mapper.ParameterMapper;
 import com.domus.net.domain.repository.ParameterRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +33,12 @@ public class ParameterService {
 		return parameterRepository.existConcept(concept);
 	}
 
-	public List<ParameterDto> getAll(){
-		return parameterMapper.parameterToParameterDto(parameterRepository.getAll());
+	public Page<ParameterDto> getAll(Pageable pageable){
+
+		var parameterPage = parameterRepository.getAll(pageable);
+
+		List<ParameterDto> residenceDtoList = parameterMapper.parameterToParameterDto(parameterPage.getContent());
+		return new PageImpl<>(residenceDtoList, parameterPage.getPageable(), parameterPage.getTotalElements());
 	}
 
 	public ParameterDto save(ParameterDto parameterDto){

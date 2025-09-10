@@ -1,12 +1,10 @@
 package com.domus.net.application;
 
 import com.domus.net.application.anotation.Application;
-import com.domus.net.domain.dto.HomeDto;
 import com.domus.net.domain.dto.ResidenceDto;
-import com.domus.net.domain.service.HomeService;
 import com.domus.net.domain.service.ResidenceService;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Application
 public class ResidenceApplication {
@@ -27,8 +25,8 @@ public class ResidenceApplication {
 		return residenceService.existName(name);
 	}
 
-	public List<ResidenceDto> getAll(){
-		return residenceService.getAll();
+	public Page<ResidenceDto> getAll(Pageable pageable){
+		return residenceService.getAll(pageable);
 	}
 
 	public ResidenceDto save(ResidenceDto residenceDto){

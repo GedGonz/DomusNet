@@ -4,11 +4,11 @@ import com.domus.net.application.PersonApplication;
 import com.domus.net.domain.dto.PersonDto;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @Log4j2
@@ -23,8 +23,8 @@ public class PersonController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<List<PersonDto>> getAll(){
-		return new ResponseEntity<>(personApplication.getAll(), HttpStatus.OK);
+	public ResponseEntity<Page<PersonDto>> getAll(Pageable pageable){
+		return new ResponseEntity<>(personApplication.getAll(pageable), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

@@ -4,6 +4,8 @@ import com.domus.net.domain.repository.HomeRepository;
 import com.domus.net.infrastructure.entity.Home;
 import com.domus.net.infrastructure.jpaentity.JpaHomeCrudRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,9 +30,10 @@ public class HomeRepositoryImpl implements HomeRepository {
 	public boolean existNumber(String number) {
 		return jpaHomeCrudRepository.existsByNumberIgnoreCase(number).orElse(false);
 	}
+
 	@Override
-	public List<Home> getAll() {
-		return jpaHomeCrudRepository.findAll();
+	public Page<Home> getAll(Pageable pageable) {
+		return jpaHomeCrudRepository.findAll(pageable);
 	}
 
 	@Override

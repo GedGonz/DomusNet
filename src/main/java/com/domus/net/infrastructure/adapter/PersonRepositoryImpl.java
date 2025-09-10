@@ -4,6 +4,8 @@ import com.domus.net.domain.repository.PersonRepository;
 import com.domus.net.infrastructure.entity.Person;
 import com.domus.net.infrastructure.jpaentity.JpaPersonRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,8 +26,8 @@ public class PersonRepositoryImpl implements PersonRepository {
 	}
 
 	@Override
-	public List<Person> getAll() {
-		return jpaPersonRepository.findAll();
+	public Page<Person> getAll(Pageable pageable) {
+		return jpaPersonRepository.findAll(pageable);
 	}
 
 	@Override

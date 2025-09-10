@@ -4,6 +4,8 @@ import com.domus.net.domain.repository.TypeHomeRepository;
 import com.domus.net.infrastructure.entity.TypeHome;
 import com.domus.net.infrastructure.jpaentity.JpaTypeHomeRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,10 +25,9 @@ public class TypeHomeRepositoryImpl implements TypeHomeRepository {
 		return jpaTypeHomeRepository.findById(id).isPresent();
 	}
 
-
 	@Override
-	public List<TypeHome> getAll() {
-		return jpaTypeHomeRepository.findAll();
+	public Page<TypeHome> getAll(Pageable pageable) {
+		return jpaTypeHomeRepository.findAll(pageable);
 	}
 
 	@Override

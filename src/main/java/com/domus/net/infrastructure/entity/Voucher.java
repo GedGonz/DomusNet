@@ -27,7 +27,7 @@ public class Voucher {
 	private BigDecimal amount;
 
 	@Column(name = "num_reference", nullable = false)
-	private Integer numReference;
+	private String numReference;
 
 	@Column(nullable = false, length = 100)
 	private String photo;

@@ -4,6 +4,8 @@ import com.domus.net.domain.repository.TypeStateRepository;
 import com.domus.net.infrastructure.entity.TypeState;
 import com.domus.net.infrastructure.jpaentity.JpaTypStateRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,8 +27,8 @@ public class TypeStateRepositoryImpl implements TypeStateRepository {
 	}
 
 	@Override
-	public List<TypeState> getAll() {
-		return jpaTypStateRepository.findAll();
+	public Page<TypeState> getAll(Pageable pageable) {
+		return jpaTypStateRepository.findAll(pageable);
 	}
 
 	@Override

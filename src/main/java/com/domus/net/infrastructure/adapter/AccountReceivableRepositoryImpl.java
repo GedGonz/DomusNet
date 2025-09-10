@@ -4,6 +4,8 @@ import com.domus.net.domain.repository.AccountReceivableRepository;
 import com.domus.net.infrastructure.entity.AccountsReceivable;
 import com.domus.net.infrastructure.jpaentity.JpaAccountReceivableCrudRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -25,8 +27,8 @@ public class AccountReceivableRepositoryImpl implements AccountReceivableReposit
 	}
 
 	@Override
-	public List<AccountsReceivable> getAll() {
-		return jpaAccountReceivableCrudRepository.findAll();
+	public Page<AccountsReceivable> getAll(Pageable pageable) {
+		return jpaAccountReceivableCrudRepository.findAll(pageable);
 	}
 
 	@Override

@@ -5,8 +5,8 @@ import com.domus.net.domain.dto.TypeHomeDto;
 import com.domus.net.domain.dto.TypeStateDto;
 import com.domus.net.domain.enums.TypeState;
 import com.domus.net.domain.service.TypeHomeService;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Application
 public class TypeHomeApplication {
@@ -27,8 +27,8 @@ public class TypeHomeApplication {
 		return typeHomeService.existName(name);
 	}
 
-	public List<TypeHomeDto> getAll(){
-		return typeHomeService.getAll();
+	public Page<TypeHomeDto> getAll(Pageable pageable){
+		return typeHomeService.getAll(pageable);
 	}
 
 	public TypeHomeDto save(TypeHomeDto residenceDto){

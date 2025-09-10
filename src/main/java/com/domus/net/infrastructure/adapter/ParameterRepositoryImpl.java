@@ -4,6 +4,8 @@ import com.domus.net.domain.repository.ParameterRepository;
 import com.domus.net.infrastructure.entity.Parameter;
 import com.domus.net.infrastructure.jpaentity.JpaParameterRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,8 +26,8 @@ public class ParameterRepositoryImpl implements ParameterRepository {
 	}
 
 	@Override
-	public List<Parameter> getAll() {
-		return jpaParameterRepository.findAll();
+	public Page<Parameter> getAll(Pageable pageable) {
+		return jpaParameterRepository.findAll(pageable);
 	}
 
 	@Override
@@ -46,6 +48,11 @@ public class ParameterRepositoryImpl implements ParameterRepository {
 	@Override
 	public void delete(Long id) {
 		jpaParameterRepository.findById(id).ifPresent(jpaParameterRepository::delete);
+	}
+
+	@Override
+	public List<Parameter> findByState_Id(Long stateId) {
+		return jpaParameterRepository.findByState_Id(stateId);
 	}
 
 	@Override

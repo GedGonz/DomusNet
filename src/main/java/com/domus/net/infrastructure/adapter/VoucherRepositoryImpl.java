@@ -1,10 +1,13 @@
 package com.domus.net.infrastructure.adapter;
 
 import com.domus.net.domain.repository.VoucherRepository;
+import com.domus.net.infrastructure.entity.TypeVoucher;
 import com.domus.net.infrastructure.entity.Voucher;
 import com.domus.net.infrastructure.jpaentity.JpaVoucherRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -24,8 +27,18 @@ public class VoucherRepositoryImpl implements VoucherRepository {
 	}
 
 	@Override
-	public List<Voucher> getAll() {
-		return jpaVoucherRepository.findAll();
+	public List<Voucher> getAllByTypeVoucher(TypeVoucher typeVoucher) {
+		return jpaVoucherRepository.findByTypeVoucher(typeVoucher);
+	}
+
+	@Override
+	public boolean existNumReference(String numRef) {
+		return jpaVoucherRepository.existsByNumReferenceIgnoreCase(numRef).isPresent();
+	}
+
+	@Override
+	public Page<Voucher> getAll(Pageable pageable) {
+		return jpaVoucherRepository.findAll(pageable);
 	}
 
 	@Override
@@ -51,5 +64,10 @@ public class VoucherRepositoryImpl implements VoucherRepository {
 	@Override
 	public void processVoucher(Long voucherId) {
 		jpaVoucherRepository.processVoucher(Integer.parseInt(voucherId.toString()));
+	}
+
+	@Override
+	public String revertAccountsReceivable(Integer voucherId) {
+		return jpaVoucherRepository.revertAccountsReceivable(voucherId);
 	}
 }

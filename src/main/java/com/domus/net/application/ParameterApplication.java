@@ -2,13 +2,12 @@ package com.domus.net.application;
 
 import com.domus.net.application.anotation.Application;
 import com.domus.net.domain.dto.ParameterDto;
-import com.domus.net.domain.dto.ResidenceDto;
 import com.domus.net.domain.dto.TypeStateDto;
 import com.domus.net.domain.enums.TypeState;
 import com.domus.net.domain.service.ParameterService;
-import com.domus.net.domain.service.ResidenceService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 @Application
 public class ParameterApplication {
@@ -29,8 +28,8 @@ public class ParameterApplication {
 		return parameterService.existConcept(concept);
 	}
 
-	public List<ParameterDto> getAll(){
-		return parameterService.getAll();
+	public Page<ParameterDto> getAll(Pageable pageable){
+		return parameterService.getAll(pageable);
 	}
 
 	public ParameterDto save(ParameterDto parameterDto){

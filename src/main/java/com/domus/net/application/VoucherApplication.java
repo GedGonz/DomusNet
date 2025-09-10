@@ -5,7 +5,8 @@ import com.domus.net.domain.dto.VoucherDto;
 import com.domus.net.domain.service.FileStorageService;
 import com.domus.net.domain.service.VoucherService;
 import org.springframework.beans.factory.annotation.Value;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Application
 public class VoucherApplication {
@@ -23,12 +24,17 @@ public class VoucherApplication {
 	public VoucherDto findById(Long id){
 		return voucherService.findById(id);
 	}
+
 	public boolean exist(Long id){
 		return voucherService.exist(id);
 	}
 
-	public List<VoucherDto> getAll(){
-		return voucherService.getAll();
+	public boolean existNumReference(String numRef){
+		return voucherService.existNumReference(numRef);
+	}
+
+	public Page<VoucherDto> getAll(Pageable pageable){
+		return voucherService.getAll(pageable);
 	}
 
 	public VoucherDto save(VoucherDto voucherDto) throws Exception {
@@ -45,5 +51,9 @@ public class VoucherApplication {
 
 	public void delete(Long id){
 		voucherService.delete(id);
+	}
+
+	public String revertAccountsReceivable(Integer voucherId) {
+		return voucherService.revertAccountsReceivable(voucherId);
 	}
 }
