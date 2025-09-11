@@ -1,16 +1,17 @@
 package com.domus.net.domain.dto;
 
+import com.domus.net.infrastructure.enums.RoleEnum;
+import lombok.Builder;
+import lombok.Data;
+import java.util.Set;
 
-import java.time.LocalDate;
-
+@Data
+@Builder
 public class RoleDto {
 
-	public Long id;
+	private Long id;
 
-	private String name;
-
-	private String description;
-
-	private LocalDate dateRecord;
+	private RoleEnum roleEnum;
+	private Set<PermissionDto> permissions;
 
 }
