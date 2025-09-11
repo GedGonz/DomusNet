@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 
 @Repository
-public interface JpaAccountReceivableCrudRepository extends JpaRepository<AccountsReceivable,Long> {
+public interface JpaAccountReceivableRepository extends JpaRepository<AccountsReceivable,Long> {
 
 	@Query(value = "SELECT generate_monthly_debt(:date)", nativeQuery = true)
 	void generateMonthlyDebt(@Param("date") LocalDate date);

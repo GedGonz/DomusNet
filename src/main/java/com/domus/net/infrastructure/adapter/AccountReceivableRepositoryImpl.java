@@ -2,7 +2,7 @@ package com.domus.net.infrastructure.adapter;
 
 import com.domus.net.domain.repository.AccountReceivableRepository;
 import com.domus.net.infrastructure.entity.AccountsReceivable;
-import com.domus.net.infrastructure.jpaentity.JpaAccountReceivableCrudRepository;
+import com.domus.net.infrastructure.jpaentity.JpaAccountReceivableRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,9 +15,9 @@ import java.util.List;
 @Repository
 public class AccountReceivableRepositoryImpl implements AccountReceivableRepository {
 
-	private final JpaAccountReceivableCrudRepository jpaAccountReceivableCrudRepository;
+	private final JpaAccountReceivableRepository jpaAccountReceivableCrudRepository;
 
-	public AccountReceivableRepositoryImpl(JpaAccountReceivableCrudRepository jpaAccountReceivableCrudRepository) {
+	public AccountReceivableRepositoryImpl(JpaAccountReceivableRepository jpaAccountReceivableCrudRepository) {
 		this.jpaAccountReceivableCrudRepository = jpaAccountReceivableCrudRepository;
 	}
 

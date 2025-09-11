@@ -2,15 +2,18 @@ package com.domus.net.web.controller;
 
 import com.domus.net.application.VoucherApplication;
 import com.domus.net.domain.dto.VoucherDto;
+import com.domus.net.web.utils.ApiResponse;
+import com.domus.net.web.utils.PageResponse;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @Log4j2
+@PreAuthorize("isAuthenticated()")
 @RestController
 @RequestMapping("/voucher")
 public class VoucherController {
@@ -21,27 +24,30 @@ public class VoucherController {
 		this.voucherApplication = voucherApplication;
 	}
 
-
 	@GetMapping("")
-	public ResponseEntity<Page<VoucherDto>> getAll(Pageable pageable){
-		return new ResponseEntity<>(voucherApplication.getAll(pageable), HttpStatus.OK);
+	public ResponseEntity<ApiResponse<PageResponse<VoucherDto>>> getAll(Pageable pageable){
+		var pageResponse = new PageResponse<>(voucherApplication.getAll(pageable));
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", pageResponse);
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<VoucherDto> getFindById(@PathVariable("id") Long id){
-		return new ResponseEntity<>(voucherApplication.findById(id), HttpStatus.OK);
+	public ResponseEntity<ApiResponse<VoucherDto>> getFindById(@PathVariable("id") Long id){
+		var result = voucherApplication.findById(id);
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", result);
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 	@GetMapping("revert/{id}")
-	public ResponseEntity<String> revert(@PathVariable("id") Long id) {
+	public ResponseEntity<ApiResponse<String>> revert(@PathVariable("id") Long id) {
 		var result = voucherApplication.revertAccountsReceivable(id);
 		if(result.contains("Error"))
-			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-		return ResponseEntity.status(HttpStatus.OK).build();
+			return new ResponseEntity<>(new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), result, null), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), "", result), HttpStatus.OK);
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<VoucherDto> save(@Valid @ModelAttribute VoucherDto voucherDto) throws Exception {
+	public ResponseEntity<ApiResponse<VoucherDto>> save(@Valid @ModelAttribute VoucherDto voucherDto) throws Exception {
 
 		if(voucherApplication.existNumReference(voucherDto.getNumReference())){
 			log.warn("el number de referencia {} ya exist", voucherDto.getNumReference());
@@ -50,11 +56,13 @@ public class VoucherController {
 
 		VoucherDto voucherSaved = voucherApplication.save(voucherDto);
 
-		return new ResponseEntity<>(voucherSaved, HttpStatus.OK);
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", voucherSaved);
+
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<VoucherDto> update(@PathVariable Long id, @Valid @ModelAttribute VoucherDto voucherDto) throws Exception {
+	public ResponseEntity<ApiResponse<VoucherDto>> update(@PathVariable Long id, @Valid @ModelAttribute VoucherDto voucherDto) throws Exception {
 
 		if (!id.equals(voucherDto.getId())) {
 			return ResponseEntity.badRequest().build();
@@ -66,13 +74,15 @@ public class VoucherController {
 		}
 		voucherDto.setId(id);
 		VoucherDto voucherUpdated = voucherApplication.save(voucherDto);
-		return new ResponseEntity<>(voucherUpdated, HttpStatus.OK);
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", voucherUpdated);
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
+	public ResponseEntity<ApiResponse<String>> delete(@PathVariable("id") Long id) throws Exception {
 		voucherApplication.delete(id);
-		return ResponseEntity.status(HttpStatus.OK).build();
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", "true");
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 }

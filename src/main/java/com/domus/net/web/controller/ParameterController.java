@@ -2,16 +2,19 @@ package com.domus.net.web.controller;
 
 import com.domus.net.application.ParameterApplication;
 import com.domus.net.domain.dto.ParameterDto;
+import com.domus.net.web.utils.ApiResponse;
+import com.domus.net.web.utils.PageResponse;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
 @Log4j2
+@PreAuthorize("isAuthenticated()")
 @RestController
 @RequestMapping("/parameter")
 public class ParameterController {
@@ -23,17 +26,24 @@ public class ParameterController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<Page<ParameterDto>> getAll(Pageable pageable){
-		return new ResponseEntity<>(parameterApplication.getAll(pageable), HttpStatus.OK);
+	public ResponseEntity<ApiResponse<PageResponse<ParameterDto>>> getAll(Pageable pageable){
+
+		var pageResponse = new PageResponse<>(parameterApplication.getAll(pageable));
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", pageResponse);
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ParameterDto> getFindById(@PathVariable("id") Long id){
-		return new ResponseEntity<>(parameterApplication.findById(id), HttpStatus.OK);
+	public ResponseEntity<ApiResponse<ParameterDto>> getFindById(@PathVariable("id") Long id){
+
+		var result = parameterApplication.findById(id);
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", result);
+
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<ParameterDto> save(@Valid @RequestBody ParameterDto parameterDto){
+	public ResponseEntity<ApiResponse<ParameterDto>> save(@Valid @RequestBody ParameterDto parameterDto){
 
 		if(parameterApplication.existConcept(parameterDto.getConcept())){
 			log.warn("el concepto con nombre {} ya exist", parameterDto.getConcept());
@@ -42,11 +52,13 @@ public class ParameterController {
 
 		ParameterDto parameterSaved = parameterApplication.save(parameterDto);
 
-		return new ResponseEntity<>(parameterSaved, HttpStatus.OK);
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", parameterSaved);
+
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<ParameterDto> update(@PathVariable Long id, @Valid @RequestBody ParameterDto parameterDto) {
+	public ResponseEntity<ApiResponse<ParameterDto>> update(@PathVariable Long id, @Valid @RequestBody ParameterDto parameterDto) {
 
 		if (!id.equals(parameterDto.getId())) {
 			return ResponseEntity.badRequest().build();
@@ -57,13 +69,19 @@ public class ParameterController {
 			return ResponseEntity.notFound().build();
 		}
 		ParameterDto parameterUpdated = parameterApplication.save(parameterDto);
-		return new ResponseEntity<>(parameterUpdated, HttpStatus.OK);
+
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", parameterUpdated);
+
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
+	public ResponseEntity<ApiResponse<String>> delete(@PathVariable("id") Long id) throws Exception {
+
 		parameterApplication.delete(id);
-		return ResponseEntity.status(HttpStatus.OK).build();
+		var apiResponse = new ApiResponse<>(HttpStatus.OK.value(), "", "true");
+
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
 }
