@@ -1,6 +1,8 @@
 package com.domus.net.domain.dto;
 
 
+import com.domus.net.infrastructure.enums.TypeStateEnum;
+
 import java.time.LocalDate;
 
 public class ProjectDto {
@@ -11,5 +13,5 @@ public class ProjectDto {
 	private LocalDate dateInit;
 	private LocalDate dateEnd;
 	private ResidenceDto residence;
-	private TypeStateDto state;
+	private TypeStateEnum state;
 }

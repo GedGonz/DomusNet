@@ -2,9 +2,8 @@ package com.domus.net.application;
 
 import com.domus.net.application.anotation.Application;
 import com.domus.net.domain.dto.TypeHomeDto;
-import com.domus.net.domain.dto.TypeStateDto;
-import com.domus.net.domain.enums.TypeState;
 import com.domus.net.domain.service.TypeHomeService;
+import com.domus.net.infrastructure.enums.TypeStateEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -33,8 +32,7 @@ public class TypeHomeApplication {
 
 	public TypeHomeDto save(TypeHomeDto residenceDto){
 
-		var state= TypeStateDto.builder().id(TypeState.ACTIVE.getValue()).build();
-		residenceDto.setState(state);
+		residenceDto.setState(TypeStateEnum.ACTIVE);
 
 		return typeHomeService.save(residenceDto);
 	}

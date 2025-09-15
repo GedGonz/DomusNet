@@ -7,7 +7,6 @@ import com.domus.net.web.utils.PageResponse;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,11 +20,9 @@ import org.springframework.web.bind.annotation.*;
 public class HomeController {
 
 	private final HomeApplication homeApplication;
-	private final PagedResourcesAssembler<HomeDto> assembler;
 
-	public HomeController(HomeApplication homeApplication, PagedResourcesAssembler<HomeDto> assembler) {
+	public HomeController(HomeApplication homeApplication) {
 		this.homeApplication = homeApplication;
-		this.assembler = assembler;
 	}
 
 

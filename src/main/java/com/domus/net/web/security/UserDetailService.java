@@ -5,9 +5,8 @@ import com.domus.net.application.RoleApplication;
 import com.domus.net.application.UserApplication;
 import com.domus.net.domain.dto.PersonDto;
 import com.domus.net.domain.dto.RoleDto;
-import com.domus.net.domain.dto.TypeStateDto;
 import com.domus.net.domain.dto.UserDto;
-import com.domus.net.domain.enums.TypeState;
+import com.domus.net.infrastructure.enums.TypeStateEnum;
 import com.domus.net.web.model.AuthCreateUser;
 import com.domus.net.web.model.AuthLoginRequest;
 import com.domus.net.web.model.AuthResponse;
@@ -112,7 +111,7 @@ public class UserDetailService implements UserDetailsService {
 				username(username).
 				password(passwordEncoder.encode(password)).
 				person(PersonDto.builder().id(authCreateUser.personId()).build()).
-				state(TypeStateDto.builder().id(TypeState.ACTIVE.getValue()).build()).
+				state(TypeStateEnum.ACTIVE).
 				roles(rolesSet).
 				enabled(true).
 				accountNoLocked(true).

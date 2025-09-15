@@ -1,7 +1,6 @@
 package com.domus.net.infrastructure.adapter;
 
 import com.domus.net.domain.repository.VoucherRepository;
-import com.domus.net.infrastructure.entity.TypeVoucher;
 import com.domus.net.infrastructure.entity.Voucher;
 import com.domus.net.infrastructure.jpaentity.JpaVoucherRepository;
 import lombok.extern.log4j.Log4j2;
@@ -26,10 +25,7 @@ public class VoucherRepositoryImpl implements VoucherRepository {
 		return jpaVoucherRepository.findById(id).isPresent();
 	}
 
-	@Override
-	public List<Voucher> getAllByTypeVoucher(TypeVoucher typeVoucher) {
-		return jpaVoucherRepository.findByTypeVoucher(typeVoucher);
-	}
+
 
 	@Override
 	public boolean existNumReference(String numRef) {

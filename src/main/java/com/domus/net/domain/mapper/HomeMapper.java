@@ -16,7 +16,6 @@ public interface HomeMapper {
 	HomeDto homeToHomeDto(Home home);
 
 	@Mappings({
-			@Mapping(target = "state", expression = "java(findTypeState(homeDto.getState().getId(), context))"),
 			@Mapping(target = "residence", expression = "java(findResidence(homeDto.getResidence().getId(), context))"),
 			@Mapping(target = "typeHome", expression = "java(findTypeHome(homeDto.getTypeHome().getId(), context))"),
 	})
@@ -24,10 +23,6 @@ public interface HomeMapper {
 
 	List<Home> homesDtoToHomes(List<HomeDto> homeDtos);
 	List<HomeDto> homessToHomesDto(List<Home> homes);
-
-	default TypeState findTypeState(Long id, MappingContext context) {
-		return id != null ? context.getTypeStateRepository().getFindById(id) : null;
-	}
 
 	default Residence findResidence(Long id, MappingContext context) {
 		return id != null ? context.getResidenceRepository().getFindById(id) : null;

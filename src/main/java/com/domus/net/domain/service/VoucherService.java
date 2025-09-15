@@ -3,12 +3,12 @@ package com.domus.net.domain.service;
 import com.domus.net.domain.dto.ParameterDto;
 import com.domus.net.domain.dto.VoucherDetailDto;
 import com.domus.net.domain.dto.VoucherDto;
-import com.domus.net.domain.enums.TypeState;
 import com.domus.net.domain.mapper.VoucherDetailMapper;
 import com.domus.net.domain.mapper.VoucherMapper;
 import com.domus.net.domain.repository.ParameterRepository;
 import com.domus.net.domain.repository.VoucherDetailRepository;
 import com.domus.net.domain.repository.VoucherRepository;
+import com.domus.net.infrastructure.enums.TypeStateEnum;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -58,7 +58,7 @@ public class VoucherService {
 	@Transactional
 	public VoucherDto save(VoucherDto voucherDto){
 
-		var parameters = parameterRepository.findByState_Id(TypeState.ACTIVE.getValue());
+		var parameters = parameterRepository.findByState(TypeStateEnum.ACTIVE);
 
 		var voucher = voucherMapper.voucherDtoToVoucher(voucherDto);
 		var voucherSaved = voucherMapper.voucherToVoucherDto(voucherRepository.save(voucher));

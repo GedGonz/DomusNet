@@ -2,6 +2,7 @@ package com.domus.net.infrastructure.adapter;
 
 import com.domus.net.domain.repository.ParameterRepository;
 import com.domus.net.infrastructure.entity.Parameter;
+import com.domus.net.infrastructure.enums.TypeStateEnum;
 import com.domus.net.infrastructure.jpaentity.JpaParameterRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -51,8 +52,8 @@ public class ParameterRepositoryImpl implements ParameterRepository {
 	}
 
 	@Override
-	public List<Parameter> findByState_Id(Long stateId) {
-		return jpaParameterRepository.findByState_Id(stateId);
+	public List<Parameter> findByState(TypeStateEnum state) {
+		return jpaParameterRepository.findByState(state);
 	}
 
 	@Override

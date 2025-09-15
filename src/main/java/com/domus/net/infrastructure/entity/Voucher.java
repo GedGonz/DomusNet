@@ -1,5 +1,7 @@
 package com.domus.net.infrastructure.entity;
 
+import com.domus.net.infrastructure.enums.TypeStateEnum;
+import com.domus.net.infrastructure.enums.TypeVoucherEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,9 +51,13 @@ public class Voucher {
 	@JoinColumn(name = "home_id", nullable = false)
 	private Home home;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "type_voucher_id", nullable = false)
-	private TypeVoucher typeVoucher;
+	@Column(name = "type_voucher")
+	@Enumerated(EnumType.STRING)
+	private TypeVoucherEnum typeVoucher;
+
+	@Column(name = "state")
+	@Enumerated(EnumType.STRING)
+	private TypeStateEnum state;
 
 	@OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<VoucherDetail> details;

@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {UserMapper.class, HomeMapper.class, TypeVoucherMapper.class, VoucherDetailMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, HomeMapper.class, VoucherDetailMapper.class})
 public interface VoucherMapper {
 
 	VoucherDto voucherToVoucherDto(Voucher voucher);

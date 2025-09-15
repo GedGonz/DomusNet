@@ -1,5 +1,6 @@
 package com.domus.net.domain.dto;
 
+import com.domus.net.infrastructure.enums.TypeStateEnum;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -29,5 +30,5 @@ public class ParameterDto {
 	@NotNull(message = "La fecha de registro no puede ser nulo")
 	private LocalDate dateRecord;
 
-	private TypeStateDto state;
+	private TypeStateEnum state;
 }

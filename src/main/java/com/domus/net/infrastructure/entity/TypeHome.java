@@ -1,5 +1,6 @@
 package com.domus.net.infrastructure.entity;
 
+import com.domus.net.infrastructure.enums.TypeStateEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,8 @@ public class TypeHome {
 	@Column(nullable = false, precision = 2, scale = 1)
 	private BigDecimal discount;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "state_id", nullable = false)
-	private TypeState state;
+	@Column(name = "state")
+	@Enumerated(EnumType.STRING)
+	private TypeStateEnum state;
+
 }

@@ -1,5 +1,6 @@
 package com.domus.net.infrastructure.entity;
 
+import com.domus.net.infrastructure.enums.TypeStateEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,8 @@ public class Parameter {
 	@Column(name = "date_record", nullable = false)
 	private LocalDate dateRecord;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "state_id", nullable = false)
-	private TypeState state;
+	@Column(name = "state")
+	@Enumerated(EnumType.STRING)
+	private TypeStateEnum state;
+
 }

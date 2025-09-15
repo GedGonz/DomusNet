@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class MappingContext {
 
-	private final TypeStateRepository typeStateRepository;
 	private final ResidenceRepository residenceRepository;
 	private final TypeHomeRepository typeHomeRepository;
 	private final PersonRepository personRepository;
@@ -16,8 +15,7 @@ public class MappingContext {
 	private final ParameterRepository parameterRepository;
 
 
-	public MappingContext(TypeStateRepository typeStateRepository, ResidenceRepository residenceRepository, TypeHomeRepository typeHomeRepository, PersonRepository personRepository, HomeRepository homeRepository, ParameterRepository parameterRepository) {
-		this.typeStateRepository = typeStateRepository;
+	public MappingContext( ResidenceRepository residenceRepository, TypeHomeRepository typeHomeRepository, PersonRepository personRepository, HomeRepository homeRepository, ParameterRepository parameterRepository) {
 		this.residenceRepository = residenceRepository;
 		this.typeHomeRepository = typeHomeRepository;
 		this.personRepository = personRepository;

@@ -1,5 +1,6 @@
 package com.domus.net.domain.dto;
 
+import com.domus.net.infrastructure.enums.TypeStateEnum;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -22,5 +23,5 @@ public class TypeHomeDto {
 	@NotNull(message = "El descuento no puede ser nulo")
 	private BigDecimal discount;
 
-	private TypeStateDto state;
+	private TypeStateEnum state;
 }

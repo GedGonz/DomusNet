@@ -2,9 +2,8 @@ package com.domus.net.application;
 
 import com.domus.net.application.anotation.Application;
 import com.domus.net.domain.dto.ParameterDto;
-import com.domus.net.domain.dto.TypeStateDto;
-import com.domus.net.domain.enums.TypeState;
 import com.domus.net.domain.service.ParameterService;
+import com.domus.net.infrastructure.enums.TypeStateEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -33,8 +32,8 @@ public class ParameterApplication {
 	}
 
 	public ParameterDto save(ParameterDto parameterDto){
-		var state= TypeStateDto.builder().id(TypeState.ACTIVE.getValue()).build();
-		parameterDto.setState(state);
+
+		parameterDto.setState(TypeStateEnum.ACTIVE);
 		return parameterService.save(parameterDto);
 	}
 

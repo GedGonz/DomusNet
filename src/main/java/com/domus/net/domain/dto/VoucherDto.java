@@ -1,5 +1,6 @@
 package com.domus.net.domain.dto;
 
+import com.domus.net.infrastructure.enums.TypeVoucherEnum;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -46,7 +47,7 @@ public class VoucherDto {
 	private HomeDto home;
 
 	@NotNull(message = "El tipo de voucher no puede ser nulo")
-	private TypeVoucherDto typeVoucher;
+	private TypeVoucherEnum typeVoucher;
 
 	private Set<VoucherDetailDto> details;
 }
